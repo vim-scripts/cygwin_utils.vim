@@ -1,0 +1,62 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1150
+
+"   This script has been created as a means to hopefully make using
+"   cygwin easier, so that scripts that utilize *nix commands can be
+"   ported to windows.
+"
+"   Right now this script provides only a few funtions, but it may grow
+"   over time.
+"
+"   I'm making sure that each function will be safe to use under *nix
+"   (specifically linux, since that's what I use) by confirming that vim
+"   is running under windows before executing any windows/cygwin
+"   specific commands.
+"
+" Platform:
+"   Windows:
+"     Requires cygwin (http://cygwin.com).
+"   *nux:
+"     Should be safe to use any function defined within on *nix systems
+"     since each function checks the platform before running system
+"     specific commands.
+"
+"     However, if you don't want *nix users to have a dependency on this
+"     plugin, you may define proxy functions that first check if a function
+"     is defined before using it.
+"
+"     Ex. Defining a proxy function for translating paths based on OS.
+"       function! s:DeterminePath (path)
+"         if exists("*CygwinPath")
+"           return CygwinPath(a:path)
+"         endif
+"         return a:path
+"       endfunction
+"
+" Configuration:
+"   Note: Configuration is only necessary on Windows machines.
+"
+"   g:CygwinHome
+"     Set this to the location of your cygwin installation dir.
+"     Ex.
+"       let g:CygwinHome = 'c:/cygwin'
+"     Note: Be careful using '\&#039 in double quoted strings since
+"     that represents the start of an escape character in vim.
+"
+"   On windows you will need to add your cygwin/bin directory to
+"   your WINDOWS path.
+"     PATH=%CYGWIN_HOME%\bin;%PATH%
+"   So that unix commands can be executed from your dos console.
+"
+"   Also, I had issues using Windows' default temp directory.
+"   Vim continually had issues accessing temp files (that I have
+"   no control over).  It seems it was due to the spaces in the
+"   directory path, so I changed my system %TMP% and %TEMP%
+"   variables to point to c:\cygwin\tmp instead, and that solved
+"   my issues.  You may have to do the same.
+"
+" Limitations:
+"   All file and directory paths used in cygwin commands need to
+"   be absolute.  When the vim shell is set to a cygwin shell, the
+"   shell defaults to executing in the user's home directory.
+"   Because of this, relative paths cannot be used.
+
